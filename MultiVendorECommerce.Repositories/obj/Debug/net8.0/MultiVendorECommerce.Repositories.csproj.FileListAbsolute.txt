@@ -1,0 +1,15 @@
+G:\madhuri\MultiVendorECommerce\MultiVendorECommerce.Repositories\bin\Debug\net8.0\MultiVendorECommerce.Repositories.deps.json
+G:\madhuri\MultiVendorECommerce\MultiVendorECommerce.Repositories\bin\Debug\net8.0\MultiVendorECommerce.Repositories.dll
+G:\madhuri\MultiVendorECommerce\MultiVendorECommerce.Repositories\bin\Debug\net8.0\MultiVendorECommerce.Repositories.pdb
+G:\madhuri\MultiVendorECommerce\MultiVendorECommerce.Repositories\bin\Debug\net8.0\MultiVendorECommerce.Core.dll
+G:\madhuri\MultiVendorECommerce\MultiVendorECommerce.Repositories\bin\Debug\net8.0\MultiVendorECommerce.Core.pdb
+G:\madhuri\MultiVendorECommerce\MultiVendorECommerce.Repositories\obj\Debug\net8.0\MultiVendorECommerce.Repositories.csproj.AssemblyReference.cache
+G:\madhuri\MultiVendorECommerce\MultiVendorECommerce.Repositories\obj\Debug\net8.0\MultiVendorECommerce.Repositories.GeneratedMSBuildEditorConfig.editorconfig
+G:\madhuri\MultiVendorECommerce\MultiVendorECommerce.Repositories\obj\Debug\net8.0\MultiVendorECommerce.Repositories.AssemblyInfoInputs.cache
+G:\madhuri\MultiVendorECommerce\MultiVendorECommerce.Repositories\obj\Debug\net8.0\MultiVendorECommerce.Repositories.AssemblyInfo.cs
+G:\madhuri\MultiVendorECommerce\MultiVendorECommerce.Repositories\obj\Debug\net8.0\MultiVendorECommerce.Repositories.csproj.CoreCompileInputs.cache
+G:\madhuri\MultiVendorECommerce\MultiVendorECommerce.Repositories\obj\Debug\net8.0\MultiVen.07988BFB.Up2Date
+G:\madhuri\MultiVendorECommerce\MultiVendorECommerce.Repositories\obj\Debug\net8.0\MultiVendorECommerce.Repositories.dll
+G:\madhuri\MultiVendorECommerce\MultiVendorECommerce.Repositories\obj\Debug\net8.0\refint\MultiVendorECommerce.Repositories.dll
+G:\madhuri\MultiVendorECommerce\MultiVendorECommerce.Repositories\obj\Debug\net8.0\MultiVendorECommerce.Repositories.pdb
+G:\madhuri\MultiVendorECommerce\MultiVendorECommerce.Repositories\obj\Debug\net8.0\ref\MultiVendorECommerce.Repositories.dll

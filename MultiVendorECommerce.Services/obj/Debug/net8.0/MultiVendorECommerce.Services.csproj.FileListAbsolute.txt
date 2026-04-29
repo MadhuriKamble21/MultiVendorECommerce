@@ -1,0 +1,17 @@
+G:\madhuri\MultiVendorECommerce\MultiVendorECommerce.Services\bin\Debug\net8.0\MultiVendorECommerce.Services.deps.json
+G:\madhuri\MultiVendorECommerce\MultiVendorECommerce.Services\bin\Debug\net8.0\MultiVendorECommerce.Services.dll
+G:\madhuri\MultiVendorECommerce\MultiVendorECommerce.Services\bin\Debug\net8.0\MultiVendorECommerce.Services.pdb
+G:\madhuri\MultiVendorECommerce\MultiVendorECommerce.Services\bin\Debug\net8.0\MultiVendorECommerce.Core.dll
+G:\madhuri\MultiVendorECommerce\MultiVendorECommerce.Services\bin\Debug\net8.0\MultiVendorECommerce.Repositories.dll
+G:\madhuri\MultiVendorECommerce\MultiVendorECommerce.Services\bin\Debug\net8.0\MultiVendorECommerce.Core.pdb
+G:\madhuri\MultiVendorECommerce\MultiVendorECommerce.Services\bin\Debug\net8.0\MultiVendorECommerce.Repositories.pdb
+G:\madhuri\MultiVendorECommerce\MultiVendorECommerce.Services\obj\Debug\net8.0\MultiVendorECommerce.Services.csproj.AssemblyReference.cache
+G:\madhuri\MultiVendorECommerce\MultiVendorECommerce.Services\obj\Debug\net8.0\MultiVendorECommerce.Services.GeneratedMSBuildEditorConfig.editorconfig
+G:\madhuri\MultiVendorECommerce\MultiVendorECommerce.Services\obj\Debug\net8.0\MultiVendorECommerce.Services.AssemblyInfoInputs.cache
+G:\madhuri\MultiVendorECommerce\MultiVendorECommerce.Services\obj\Debug\net8.0\MultiVendorECommerce.Services.AssemblyInfo.cs
+G:\madhuri\MultiVendorECommerce\MultiVendorECommerce.Services\obj\Debug\net8.0\MultiVendorECommerce.Services.csproj.CoreCompileInputs.cache
+G:\madhuri\MultiVendorECommerce\MultiVendorECommerce.Services\obj\Debug\net8.0\MultiVen.ACDBE444.Up2Date
+G:\madhuri\MultiVendorECommerce\MultiVendorECommerce.Services\obj\Debug\net8.0\MultiVendorECommerce.Services.dll
+G:\madhuri\MultiVendorECommerce\MultiVendorECommerce.Services\obj\Debug\net8.0\refint\MultiVendorECommerce.Services.dll
+G:\madhuri\MultiVendorECommerce\MultiVendorECommerce.Services\obj\Debug\net8.0\MultiVendorECommerce.Services.pdb
+G:\madhuri\MultiVendorECommerce\MultiVendorECommerce.Services\obj\Debug\net8.0\ref\MultiVendorECommerce.Services.dll
