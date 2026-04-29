@@ -6,3 +6,5 @@ packages/
 .env
 *.user
 *.suo
+appsettings.Development.json
+
