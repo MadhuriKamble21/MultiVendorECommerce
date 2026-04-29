@@ -7,7 +7,7 @@ namespace MultiVendorECommerce.Repositories.Interfaces
     {
         void AddProduct(Product product);
         List<Product> GetProductsByVendor(int vendorId);
-        List<Product> GetAllProducts();
+        List<Product> GetAllProducts(int page, int pageSize, string search, decimal? minPrice, decimal? maxPrice);
         void UpdateProduct(Product product);
         void DeleteProduct(int productId, int vendorId);
         Product GetProductById(int productId);

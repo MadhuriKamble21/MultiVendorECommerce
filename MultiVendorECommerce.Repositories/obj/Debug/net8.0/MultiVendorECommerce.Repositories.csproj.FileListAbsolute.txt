@@ -8,6 +8,7 @@ G:\madhuri\MultiVendorECommerce\MultiVendorECommerce.Repositories\obj\Debug\net8
 G:\madhuri\MultiVendorECommerce\MultiVendorECommerce.Repositories\obj\Debug\net8.0\MultiVendorECommerce.Repositories.AssemblyInfoInputs.cache
 G:\madhuri\MultiVendorECommerce\MultiVendorECommerce.Repositories\obj\Debug\net8.0\MultiVendorECommerce.Repositories.AssemblyInfo.cs
 G:\madhuri\MultiVendorECommerce\MultiVendorECommerce.Repositories\obj\Debug\net8.0\MultiVendorECommerce.Repositories.csproj.CoreCompileInputs.cache
+G:\madhuri\MultiVendorECommerce\MultiVendorECommerce.Repositories\obj\Debug\net8.0\MultiVendorECommerce.Repositories.sourcelink.json
 G:\madhuri\MultiVendorECommerce\MultiVendorECommerce.Repositories\obj\Debug\net8.0\MultiVen.07988BFB.Up2Date
 G:\madhuri\MultiVendorECommerce\MultiVendorECommerce.Repositories\obj\Debug\net8.0\MultiVendorECommerce.Repositories.dll
 G:\madhuri\MultiVendorECommerce\MultiVendorECommerce.Repositories\obj\Debug\net8.0\refint\MultiVendorECommerce.Repositories.dll

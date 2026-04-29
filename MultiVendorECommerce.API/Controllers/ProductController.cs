@@ -38,12 +38,19 @@ namespace MultiVendorECommerce.API.Controllers
             return Ok(products);
         }
 
-        [AllowAnonymous]
         [HttpGet("all")]
-        public IActionResult GetAllProducts()
+        public IActionResult GetAllProducts(
+    int page = 1,
+    int pageSize = 5,
+    string search = "",
+    decimal? minPrice = null,
+    decimal? maxPrice = null)
         {
-            return Ok(_service.GetAllProducts());
+            var products = _service.GetAllProducts(page, pageSize, search, minPrice, maxPrice);
+
+            return Ok(products);
         }
+
 
         [HttpPut("{id}")]
         public IActionResult UpdateProduct(int id, ProductDto dto)

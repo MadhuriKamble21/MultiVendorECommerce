@@ -65,13 +65,38 @@ namespace MultiVendorECommerce.Repositories.Implementations
         }
 
 
-        public List<Product> GetAllProducts()
+        public List<Product> GetAllProducts(int page, int pageSize, string search, decimal? minPrice, decimal? maxPrice)
         {
             var products = new List<Product>();
 
             using (var conn = _dbHelper.GetConnection())
             {
-                var cmd = new SqlCommand("SELECT * FROM Products", conn);
+                var query = "SELECT * FROM Products WHERE 1=1";
+
+                if (!string.IsNullOrEmpty(search))
+                    query += " AND Name LIKE @Search";
+
+                if (minPrice.HasValue)
+                    query += " AND Price >= @MinPrice";
+
+                if (maxPrice.HasValue)
+                    query += " AND Price <= @MaxPrice";
+
+                query += " ORDER BY ProductId OFFSET @Offset ROWS FETCH NEXT @PageSize ROWS ONLY";
+
+                var cmd = new SqlCommand(query, conn);
+
+                cmd.Parameters.AddWithValue("@Offset", (page - 1) * pageSize);
+                cmd.Parameters.AddWithValue("@PageSize", pageSize);
+
+                if (!string.IsNullOrEmpty(search))
+                    cmd.Parameters.AddWithValue("@Search", "%" + search + "%");
+
+                if (minPrice.HasValue)
+                    cmd.Parameters.AddWithValue("@MinPrice", minPrice.Value);
+
+                if (maxPrice.HasValue)
+                    cmd.Parameters.AddWithValue("@MaxPrice", maxPrice.Value);
 
                 conn.Open();
 

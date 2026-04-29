@@ -8,7 +8,8 @@ namespace MultiVendorECommerce.Services.Interfaces
     {
         void AddProduct(int vendorId, ProductDto dto);
         List<Product> GetMyProducts(int vendorId);
-        List<Product> GetAllProducts();
+        List<Product> GetAllProducts(int page, int pageSize, string search, decimal? minPrice, decimal? maxPrice);
+
 
         void UpdateProduct(int vendorId, int productId, ProductDto dto);
 

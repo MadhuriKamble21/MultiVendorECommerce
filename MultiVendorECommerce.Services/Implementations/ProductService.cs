@@ -44,10 +44,11 @@ namespace MultiVendorECommerce.Services.Implementations
             return _repo.GetProductsByVendor(vendorId);
         }
 
-        public List<Product> GetAllProducts()
+        public List<Product> GetAllProducts(int page, int pageSize, string search, decimal? minPrice, decimal? maxPrice)
         {
-             return _repo.GetAllProducts();
+            return _repo.GetAllProducts(page, pageSize, search, minPrice, maxPrice);
         }
+
 
         public void UpdateProduct(int vendorId, int productId, ProductDto dto)
         {
