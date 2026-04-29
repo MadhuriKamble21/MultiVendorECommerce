@@ -28,5 +28,13 @@ namespace MultiVendorECommerce.API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet("user/{userId}")]
+        public IActionResult GetUserOrders(int userId)
+        {
+            var orders = _service.GetOrdersByUserId(userId);
+            return Ok(orders);
+        }
+
     }
 }

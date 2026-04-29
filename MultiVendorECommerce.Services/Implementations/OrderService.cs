@@ -17,5 +17,11 @@ namespace MultiVendorECommerce.Services.Implementations
         {
             _repo.PlaceOrder(dto);
         }
+
+        public List<OrderResponseDto> GetOrdersByUserId(int userId)
+        {
+            return _repo.GetOrdersByUserId(userId);
+        }
+
     }
 }

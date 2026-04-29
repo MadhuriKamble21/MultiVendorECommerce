@@ -1,7 +1,7 @@
 ﻿using MultiVendorECommerce.Core.DTOs;
 using System;
+using MultiVendorECommerce.Core.Models;
 using Microsoft.Data.SqlClient;
-
 using MultiVendorECommerce.Repositories.DBHelper;
 using MultiVendorECommerce.Repositories.Interfaces;
 
@@ -120,6 +120,38 @@ namespace MultiVendorECommerce.Repositories.Implementations
                 }
             }
         }
+        public List<OrderResponseDto> GetOrdersByUserId(int userId)
+        {
+            var orders = new List<OrderResponseDto>();
+
+            using (var conn = _dbHelper.GetConnection())
+            {
+                var cmd = new SqlCommand(
+                    "SELECT OrderId, TotalAmount, OrderDate FROM Orders WHERE UserId = @UserId ORDER BY OrderDate DESC",
+                    conn);
+
+                cmd.Parameters.AddWithValue("@UserId", userId);
+
+                conn.Open();
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        orders.Add(new OrderResponseDto
+                        {
+                            OrderId = (int)reader["OrderId"],
+                            TotalAmount = (decimal)reader["TotalAmount"],
+                            OrderDate = (DateTime)reader["OrderDate"]
+                        });
+                    }
+                }
+            }
+
+            return orders;
+        }
+
+
 
     }
 }
