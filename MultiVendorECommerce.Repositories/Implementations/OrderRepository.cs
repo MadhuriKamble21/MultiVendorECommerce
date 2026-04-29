@@ -1,0 +1,125 @@
+﻿using MultiVendorECommerce.Core.DTOs;
+using System;
+using Microsoft.Data.SqlClient;
+
+using MultiVendorECommerce.Repositories.DBHelper;
+using MultiVendorECommerce.Repositories.Interfaces;
+
+namespace MultiVendorECommerce.Repositories.Implementations
+{
+    public class OrderRepository : IOrderRepository
+    {
+        private readonly DbHelper _dbHelper;
+
+        public OrderRepository(DbHelper dbHelper)
+        {
+            _dbHelper = dbHelper;
+        }
+
+        public void PlaceOrder(PlaceOrderRequestDto dto)
+        {
+            using (var conn = _dbHelper.GetConnection())
+            {
+                conn.Open();
+
+                using (var transaction = conn.BeginTransaction())
+                {
+                    try
+                    {
+                        decimal totalAmount = 0;
+
+                        
+                        foreach (var item in dto.Items)
+                        {
+                            var stockCmd = new SqlCommand(
+                                "SELECT Price, Stock FROM Products WHERE ProductId = @ProductId",
+                                conn, transaction);
+
+                            stockCmd.Parameters.AddWithValue("@ProductId", item.ProductId);
+
+                            using (var reader = stockCmd.ExecuteReader())
+                            {
+                                if (!reader.Read())
+                                    throw new Exception("Product not found");
+
+                                decimal price = (decimal)reader["Price"];
+                                int stock = (int)reader["Stock"];
+
+                                if (stock < item.Quantity)
+                                    throw new Exception("Insufficient stock");
+
+                                totalAmount += price * item.Quantity;
+                            }
+                        }
+
+                        
+                        var orderCmd = new SqlCommand(
+                            @"INSERT INTO Orders(UserId, TotalAmount, OrderDate)
+                      OUTPUT INSERTED.OrderId
+                      VALUES(@UserId, @TotalAmount, GETDATE())",
+                            conn, transaction);
+
+                        orderCmd.Parameters.AddWithValue("@UserId", dto.UserId);
+                        orderCmd.Parameters.AddWithValue("@TotalAmount", totalAmount);
+
+                        int orderId = (int)orderCmd.ExecuteScalar();
+
+                        
+                        foreach (var item in dto.Items)
+                        {
+                            var priceCmd = new SqlCommand(
+                                "SELECT Price FROM Products WHERE ProductId=@ProductId",
+                                conn, transaction);
+
+                            priceCmd.Parameters.AddWithValue("@ProductId", item.ProductId);
+                            decimal price = (decimal)priceCmd.ExecuteScalar();
+
+                            // Insert OrderItem
+                            var itemCmd = new SqlCommand(
+                                @"INSERT INTO OrderItems(OrderId, ProductId, Quantity, Price)
+                          VALUES(@OrderId, @ProductId, @Quantity, @Price)",
+                                conn, transaction);
+
+                            itemCmd.Parameters.AddWithValue("@OrderId", orderId);
+                            itemCmd.Parameters.AddWithValue("@ProductId", item.ProductId);
+                            itemCmd.Parameters.AddWithValue("@Quantity", item.Quantity);
+                            itemCmd.Parameters.AddWithValue("@Price", price);
+
+                            itemCmd.ExecuteNonQuery();
+
+                            // Deduct stock
+                            var updateStockCmd = new SqlCommand(
+                                "UPDATE Products SET Stock = Stock - @Qty WHERE ProductId=@ProductId",
+                                conn, transaction);
+
+                            updateStockCmd.Parameters.AddWithValue("@Qty", item.Quantity);
+                            updateStockCmd.Parameters.AddWithValue("@ProductId", item.ProductId);
+
+                            updateStockCmd.ExecuteNonQuery();
+                        }
+
+                        
+                        var paymentCmd = new SqlCommand(
+                            @"INSERT INTO Payments(OrderId, Amount, Status)
+                      VALUES(@OrderId, @Amount, 'SUCCESS')",
+                            conn, transaction);
+
+                        paymentCmd.Parameters.AddWithValue("@OrderId", orderId);
+                        paymentCmd.Parameters.AddWithValue("@Amount", totalAmount);
+
+                        paymentCmd.ExecuteNonQuery();
+
+                        
+                        transaction.Commit();
+                    }
+                    catch
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
+            }
+        }
+
+    }
+}

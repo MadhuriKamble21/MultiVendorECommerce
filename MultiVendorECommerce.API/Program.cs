@@ -9,7 +9,6 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -21,10 +20,13 @@ builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 
 
 
-// ?? JWT Authentication Configuration
+
+//  JWT Authentication Configuration
 var key = Encoding.UTF8.GetBytes(builder.Configuration.GetValue<string>("Jwt:Key"));
 
 builder.Services.AddAuthentication(options =>
@@ -50,7 +52,7 @@ builder.Services.AddAuthentication(options =>
 var app = builder.Build();
 
 
-// ?? Middleware pipeline
+//  Middleware pipeline
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -59,7 +61,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseAuthentication();   // ?? MUST come before Authorization
+app.UseAuthentication();   
 app.UseAuthorization();
 
 app.MapControllers();
