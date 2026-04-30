@@ -23,5 +23,11 @@ namespace MultiVendorECommerce.Services.Implementations
             return _repo.GetOrdersByUserId(userId);
         }
 
+        public AdminDashboardDto GetAdminDashboard()
+        {
+            return _repo.GetAdminDashboard();
+        }
+
+
     }
 }

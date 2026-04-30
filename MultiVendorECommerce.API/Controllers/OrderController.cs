@@ -36,5 +36,13 @@ namespace MultiVendorECommerce.API.Controllers
             return Ok(orders);
         }
 
+        [HttpGet("admin/dashboard")]
+        public IActionResult GetAdminDashboard()
+        {
+            var result = _service.GetAdminDashboard();
+            return Ok(result);
+        }
+
+
     }
 }

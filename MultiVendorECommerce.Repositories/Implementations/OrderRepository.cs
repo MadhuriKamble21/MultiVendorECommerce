@@ -151,6 +151,27 @@ namespace MultiVendorECommerce.Repositories.Implementations
             return orders;
         }
 
+        public AdminDashboardDto GetAdminDashboard()
+        {
+            var dashboard = new AdminDashboardDto();
+
+            using (var conn = _dbHelper.GetConnection())
+            {
+                conn.Open();
+
+                // Total Orders
+                var orderCmd = new SqlCommand("SELECT COUNT(*) FROM Orders", conn);
+                dashboard.TotalOrders = (int)orderCmd.ExecuteScalar();
+
+                // Total Sales
+                var salesCmd = new SqlCommand("SELECT ISNULL(SUM(TotalAmount), 0) FROM Orders", conn);
+                dashboard.TotalSales = (decimal)salesCmd.ExecuteScalar();
+            }
+
+            return dashboard;
+        }
+
+
 
 
     }
