@@ -8,7 +8,7 @@ namespace MultiVendorECommerce.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize(Roles = "Vendor")]
+    [Authorize(Roles = "Vendor,Admin")]
     public class ProductController : ControllerBase
     {
         private readonly IProductService _service;

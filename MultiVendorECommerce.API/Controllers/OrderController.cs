@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MultiVendorECommerce.Core.DTOs;
+using MultiVendorECommerce.Services.Implementations;
 using MultiVendorECommerce.Services.Interfaces;
+using System.Security.Claims;
 
 namespace MultiVendorECommerce.API.Controllers
 {
@@ -36,12 +39,25 @@ namespace MultiVendorECommerce.API.Controllers
             return Ok(orders);
         }
 
-        [HttpGet("admin/dashboard")]
+        [Authorize(Roles = "Admin")]
+        [HttpGet("dashboard")]
         public IActionResult GetAdminDashboard()
         {
             var result = _service.GetAdminDashboard();
             return Ok(result);
         }
+
+        [Authorize]
+        [HttpGet("my-orders")]
+        public IActionResult GetMyOrders()
+        {
+            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+            var orders = _service.GetOrdersByUserId(userId);
+
+            return Ok(orders);
+        }
+
 
 
     }
