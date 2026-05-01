@@ -7,4 +7,6 @@ packages/
 *.user
 *.suo
 appsettings.Development.json
+build/
+
 

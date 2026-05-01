@@ -1,19 +1,22 @@
-﻿using MultiVendorECommerce.Core.DTOs;
-using System;
+﻿using Microsoft.Data.SqlClient;
+using MultiVendorECommerce.Core.DTOs;
 using MultiVendorECommerce.Core.Models;
-using Microsoft.Data.SqlClient;
 using MultiVendorECommerce.Repositories.DBHelper;
 using MultiVendorECommerce.Repositories.Interfaces;
+using System;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
 
 namespace MultiVendorECommerce.Repositories.Implementations
 {
     public class OrderRepository : IOrderRepository
     {
         private readonly DbHelper _dbHelper;
-
-        public OrderRepository(DbHelper dbHelper)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public OrderRepository(DbHelper dbHelper , IHttpContextAccessor httpContextAccessor)
         {
             _dbHelper = dbHelper;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public void PlaceOrder(PlaceOrderRequestDto dto)
@@ -58,8 +61,15 @@ namespace MultiVendorECommerce.Repositories.Implementations
                       OUTPUT INSERTED.OrderId
                       VALUES(@UserId, @TotalAmount, GETDATE())",
                             conn, transaction);
+                        
 
-                        orderCmd.Parameters.AddWithValue("@UserId", dto.UserId);
+                        var userId = int.Parse(
+                            _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value
+                        );
+
+                        orderCmd.Parameters.AddWithValue("@UserId", userId);
+
+                        //orderCmd.Parameters.AddWithValue("@UserId", dto.UserId);
                         orderCmd.Parameters.AddWithValue("@TotalAmount", totalAmount);
 
                         int orderId = (int)orderCmd.ExecuteScalar();
@@ -100,7 +110,7 @@ namespace MultiVendorECommerce.Repositories.Implementations
 
                         
                         var paymentCmd = new SqlCommand(
-                            @"INSERT INTO Payments(OrderId, Amount, Status)
+                            @"INSERT INTO Payments(OrderId, Amount, PaymentStatus)
                       VALUES(@OrderId, @Amount, 'SUCCESS')",
                             conn, transaction);
 

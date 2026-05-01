@@ -22,9 +22,10 @@ namespace MultiVendorECommerce.Repositories.Implementations
             {
                 var cmd = new SqlCommand("INSERT INTO Products (VendorId, Name, Description, Price, Stock) VALUES (@VendorId, @Name, @Description, @Price, @Stock)", conn);
 
-                cmd.Parameters.AddWithValue("@VendorId", product.VendorId);
+                
+                cmd.Parameters.AddWithValue("@VendorId",1); //product.VendorId
                 cmd.Parameters.AddWithValue("@Name", product.Name);
-                cmd.Parameters.AddWithValue("@Description", product.Description);
+                cmd.Parameters.AddWithValue("@Description", "");
                 cmd.Parameters.AddWithValue("@Price", product.Price);
                 cmd.Parameters.AddWithValue("@Stock", product.Stock);
 

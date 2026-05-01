@@ -1,4 +1,5 @@
 ﻿using MultiVendorECommerce.Core.DTOs;
+using System.Collections.Generic;
 
 namespace MultiVendorECommerce.Services.Interfaces
 {
