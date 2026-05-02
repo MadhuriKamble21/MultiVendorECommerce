@@ -8,8 +8,9 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 COPY --from=build /app/out .
 
-#Correct dynamic port binding
-ENV ASPNETCORE_URLS=http://+:${PORT}
+#dynamic PORT from Render
+ENV ASPNETCORE_URLS=http://+:$PORT
+
 EXPOSE 10000
 
 ENTRYPOINT ["dotnet", "MultiVendorECommerce.API.dll"]
