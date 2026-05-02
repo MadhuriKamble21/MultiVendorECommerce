@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using MultiVendorECommerce.Repositories.DBHelper;
 using MultiVendorECommerce.Repositories.Implementations;
@@ -9,12 +9,12 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add services
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
-// ?? Dependency Injection
+// Dependency Injection
 builder.Services.AddScoped<DbHelper>();
 builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
@@ -24,10 +24,7 @@ builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddHttpContextAccessor();
 
-
-
-
-//  JWT Authentication Configuration
+// JWT Authentication Configuration
 var key = Encoding.UTF8.GetBytes(builder.Configuration.GetValue<string>("Jwt:Key"));
 
 builder.Services.AddAuthentication(options =>
@@ -49,6 +46,8 @@ builder.Services.AddAuthentication(options =>
         IssuerSigningKey = new SymmetricSecurityKey(key)
     };
 });
+
+// CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll",
@@ -57,24 +56,9 @@ builder.Services.AddCors(options =>
                         .AllowAnyHeader());
 });
 
-
 var app = builder.Build();
 
+// Middleware
 app.UseCors("AllowAll");
 
-
-//  Middleware pipeline
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-app.UseHttpsRedirection();
-
-app.UseAuthentication();   
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();
+// ✅ Enable Swagger in production (imp
