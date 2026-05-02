@@ -24,8 +24,15 @@ builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddHttpContextAccessor();
 
-// JWT Authentication Configuration
-var key = Encoding.UTF8.GetBytes(builder.Configuration.GetValue<string>("Jwt:Key"));
+// ✅ JWT Configuration (safe)
+var jwtKey = builder.Configuration["Jwt:Key"];
+
+if (string.IsNullOrEmpty(jwtKey))
+{
+    throw new Exception("JWT Key is missing. Add Jwt__Key in Render Environment Variables.");
+}
+
+var key = Encoding.UTF8.GetBytes(jwtKey);
 
 builder.Services.AddAuthentication(options =>
 {
@@ -61,4 +68,20 @@ var app = builder.Build();
 // Middleware
 app.UseCors("AllowAll");
 
-// ✅ Enable Swagger in production (imp
+// ✅ Enable Swagger in production
+app.UseSwagger();
+app.UseSwaggerUI();
+
+// ❌ Disable HTTPS redirection for Render
+// app.UseHttpsRedirection();
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.MapControllers();
+
+// ✅ Bind to Render PORT
+var port = Environment.GetEnvironmentVariable("PORT") ?? "10000";
+app.Urls.Add($"http://0.0.0.0:{port}");
+
+app.Run();
