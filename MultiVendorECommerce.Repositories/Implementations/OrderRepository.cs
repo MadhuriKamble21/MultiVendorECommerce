@@ -1,4 +1,4 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using MySql.Data.MySqlClient;
 using MultiVendorECommerce.Core.DTOs;
 using MultiVendorECommerce.Core.Models;
 using MultiVendorECommerce.Repositories.DBHelper;
@@ -34,7 +34,7 @@ namespace MultiVendorECommerce.Repositories.Implementations
                         
                         foreach (var item in dto.Items)
                         {
-                            var stockCmd = new SqlCommand(
+                            var stockCmd = new MySqlCommand (
                                 "SELECT Price, Stock FROM Products WHERE ProductId = @ProductId",
                                 conn, transaction);
 
@@ -56,7 +56,7 @@ namespace MultiVendorECommerce.Repositories.Implementations
                         }
 
                         
-                        var orderCmd = new SqlCommand(
+                        var orderCmd = new MySqlCommand (
                             @"INSERT INTO Orders(UserId, TotalAmount, OrderDate)
                       OUTPUT INSERTED.OrderId
                       VALUES(@UserId, @TotalAmount, GETDATE())",
@@ -77,7 +77,7 @@ namespace MultiVendorECommerce.Repositories.Implementations
                         
                         foreach (var item in dto.Items)
                         {
-                            var priceCmd = new SqlCommand(
+                            var priceCmd = new MySqlCommand (
                                 "SELECT Price FROM Products WHERE ProductId=@ProductId",
                                 conn, transaction);
 
@@ -85,7 +85,7 @@ namespace MultiVendorECommerce.Repositories.Implementations
                             decimal price = (decimal)priceCmd.ExecuteScalar();
 
                             // Insert OrderItem
-                            var itemCmd = new SqlCommand(
+                            var itemCmd = new MySqlCommand (
                                 @"INSERT INTO OrderItems(OrderId, ProductId, Quantity, Price)
                           VALUES(@OrderId, @ProductId, @Quantity, @Price)",
                                 conn, transaction);
@@ -98,7 +98,7 @@ namespace MultiVendorECommerce.Repositories.Implementations
                             itemCmd.ExecuteNonQuery();
 
                             // Deduct stock
-                            var updateStockCmd = new SqlCommand(
+                            var updateStockCmd = new MySqlCommand (
                                 "UPDATE Products SET Stock = Stock - @Qty WHERE ProductId=@ProductId",
                                 conn, transaction);
 
@@ -109,7 +109,7 @@ namespace MultiVendorECommerce.Repositories.Implementations
                         }
 
                         
-                        var paymentCmd = new SqlCommand(
+                        var paymentCmd = new MySqlCommand (
                             @"INSERT INTO Payments(OrderId, Amount, PaymentStatus)
                       VALUES(@OrderId, @Amount, 'SUCCESS')",
                             conn, transaction);
@@ -136,7 +136,7 @@ namespace MultiVendorECommerce.Repositories.Implementations
 
             using (var conn = _dbHelper.GetConnection())
             {
-                var cmd = new SqlCommand(
+                var cmd = new MySqlCommand (
                     "SELECT OrderId, TotalAmount, OrderDate FROM Orders WHERE UserId = @UserId ORDER BY OrderDate DESC",
                     conn);
 
@@ -170,11 +170,11 @@ namespace MultiVendorECommerce.Repositories.Implementations
                 conn.Open();
 
                 // Total Orders
-                var orderCmd = new SqlCommand("SELECT COUNT(*) FROM Orders", conn);
+                var orderCmd = new MySqlCommand ("SELECT COUNT(*) FROM Orders", conn);
                 dashboard.TotalOrders = (int)orderCmd.ExecuteScalar();
 
                 // Total Sales
-                var salesCmd = new SqlCommand("SELECT ISNULL(SUM(TotalAmount), 0) FROM Orders", conn);
+                var salesCmd = new MySqlCommand ("SELECT ISNULL(SUM(TotalAmount), 0) FROM Orders", conn);
                 dashboard.TotalSales = (decimal)salesCmd.ExecuteScalar();
             }
 

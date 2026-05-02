@@ -1,7 +1,7 @@
 ﻿using MultiVendorECommerce.Core.Models;
 using MultiVendorECommerce.Repositories.DBHelper;
 using MultiVendorECommerce.Repositories.Interfaces;
-using Microsoft.Data.SqlClient;
+using MySql.Data.MySqlClient;
 using System.Collections.Generic;
 using System.Data;
 
@@ -20,7 +20,7 @@ namespace MultiVendorECommerce.Repositories.Implementations
         {
             using (var conn = _dbHelper.GetConnection())
             {
-                var cmd = new SqlCommand("INSERT INTO Products (VendorId, Name, Description, Price, Stock) VALUES (@VendorId, @Name, @Description, @Price, @Stock)", conn);
+                var cmd = new MySqlCommand ("INSERT INTO Products (VendorId, Name, Description, Price, Stock) VALUES (@VendorId, @Name, @Description, @Price, @Stock)", conn);
 
                 
                 cmd.Parameters.AddWithValue("@VendorId",1); //product.VendorId
@@ -40,7 +40,7 @@ namespace MultiVendorECommerce.Repositories.Implementations
 
             using (var conn = _dbHelper.GetConnection())
             {
-                var cmd = new SqlCommand("SELECT * FROM Products WHERE VendorId = @VendorId", conn);
+                var cmd = new MySqlCommand ("SELECT * FROM Products WHERE VendorId = @VendorId", conn);
                 cmd.Parameters.AddWithValue("@VendorId", vendorId);
 
                 conn.Open();
@@ -85,7 +85,7 @@ namespace MultiVendorECommerce.Repositories.Implementations
 
                 query += " ORDER BY ProductId OFFSET @Offset ROWS FETCH NEXT @PageSize ROWS ONLY";
 
-                var cmd = new SqlCommand(query, conn);
+                var cmd = new MySqlCommand (query, conn);
 
                 cmd.Parameters.AddWithValue("@Offset", (page - 1) * pageSize);
                 cmd.Parameters.AddWithValue("@PageSize", pageSize);
@@ -125,7 +125,7 @@ namespace MultiVendorECommerce.Repositories.Implementations
         {
             using (var conn = _dbHelper.GetConnection())
             {
-                var cmd = new SqlCommand("SELECT * FROM Products WHERE ProductId=@Id", conn);
+                var cmd = new MySqlCommand ("SELECT * FROM Products WHERE ProductId=@Id", conn);
                 cmd.Parameters.AddWithValue("@Id", productId);
 
                 conn.Open();
@@ -153,7 +153,7 @@ namespace MultiVendorECommerce.Repositories.Implementations
         {
             using (var conn = _dbHelper.GetConnection())
             {
-                var cmd = new SqlCommand(@"
+                var cmd = new MySqlCommand (@"
             UPDATE Products 
             SET Name=@Name, Description=@Description, Price=@Price, Stock=@Stock 
             WHERE ProductId=@ProductId AND VendorId=@VendorId", conn);
@@ -174,7 +174,7 @@ namespace MultiVendorECommerce.Repositories.Implementations
         {
             using (var conn = _dbHelper.GetConnection())
             {
-                var cmd = new SqlCommand("DELETE FROM Products WHERE ProductId=@Id AND VendorId=@VendorId", conn);
+                var cmd = new MySqlCommand ("DELETE FROM Products WHERE ProductId=@Id AND VendorId=@VendorId", conn);
 
                 cmd.Parameters.AddWithValue("@Id", productId);
                 cmd.Parameters.AddWithValue("@VendorId", vendorId);

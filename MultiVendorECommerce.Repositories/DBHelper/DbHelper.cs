@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Data.SqlClient;
+using MySql.Data.MySqlClient;
+
 
 namespace MultiVendorECommerce.Repositories.DBHelper
 {
@@ -12,9 +13,9 @@ namespace MultiVendorECommerce.Repositories.DBHelper
             _connectionString = configuration.GetConnectionString("DefaultConnection");
         }
 
-        public SqlConnection GetConnection()
+        public MySqlConnection GetConnection()
         {
-            return new SqlConnection(_connectionString);
+            return new MySqlConnection(_connectionString);
         }
     }
 }
