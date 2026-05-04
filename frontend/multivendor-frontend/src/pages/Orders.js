@@ -12,7 +12,7 @@ function Orders() {
         try {
             const token = localStorage.getItem("token");
 
-            const response = await fetch("https://localhost:7107/api/order/my-orders", {
+            const response = await fetch("https://multivendorecommerce-fw8x.onrender.com/api/order/my-orders", {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },

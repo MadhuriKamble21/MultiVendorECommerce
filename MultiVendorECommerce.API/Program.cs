@@ -57,22 +57,23 @@ builder.Services.AddAuthentication(options =>
 // CORS
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll",
-        policy => policy.AllowAnyOrigin()
-                        .AllowAnyMethod()
-                        .AllowAnyHeader());
+    options.AddPolicy("AllowFrontend",
+        policy => policy
+            .WithOrigins("http://localhost:3002") //  frontend
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials());
 });
-
 var app = builder.Build();
 
 // Middleware
 app.UseCors("AllowAll");
 
-// ✅ Enable Swagger in production
+//  Enable Swagger in production
 app.UseSwagger();
 app.UseSwaggerUI();
 
-// ❌ Disable HTTPS redirection for Render
+
 // app.UseHttpsRedirection();
 
 app.UseAuthentication();

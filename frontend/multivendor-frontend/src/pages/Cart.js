@@ -56,7 +56,7 @@ function Cart() {
                 quantity: item.quantity,
             }));
 
-            const response = await fetch("https://localhost:7107/api/Order/place", {
+            const response = await fetch("https://multivendorecommerce-fw8x.onrender.com/api/Order/place", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
