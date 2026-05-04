@@ -83,13 +83,12 @@ namespace MultiVendorECommerce.Repositories.Implementations
                 if (maxPrice.HasValue)
                     query += " AND Price <= @MaxPrice";
 
-                // ✅ MySQL pagination
-                query += " ORDER BY ProductId LIMIT @Offset, @PageSize";
+                int offset = (page - 1) * pageSize;
+
+                // ✅ MySQL working pagination
+                query += $" ORDER BY ProductId LIMIT {offset}, {pageSize}";
 
                 var cmd = new MySqlCommand(query, conn);
-
-                cmd.Parameters.AddWithValue("@Offset", (page - 1) * pageSize);
-                cmd.Parameters.AddWithValue("@PageSize", pageSize);
 
                 if (!string.IsNullOrEmpty(search))
                     cmd.Parameters.AddWithValue("@Search", "%" + search + "%");
@@ -121,6 +120,8 @@ namespace MultiVendorECommerce.Repositories.Implementations
 
             return products;
         }
+
+
 
 
         public Product GetProductById(int productId)
