@@ -66,60 +66,60 @@ namespace MultiVendorECommerce.Repositories.Implementations
         }
 
 
-        public List<Product> GetAllProducts(int page, int pageSize, string search, decimal? minPrice, decimal? maxPrice)
+      public List<Product> GetAllProducts(int page, int pageSize, string search, decimal? minPrice, decimal? maxPrice)
+{
+    var products = new List<Product>();
+
+    using (var conn = _dbHelper.GetConnection())
+    {
+        var query = "SELECT * FROM Products WHERE 1=1";
+
+        if (!string.IsNullOrEmpty(search))
+            query += " AND Name LIKE @Search";
+
+        if (minPrice.HasValue)
+            query += " AND Price >= @MinPrice";
+
+        if (maxPrice.HasValue)
+            query += " AND Price <= @MaxPrice";
+
+        int offset = (page - 1) * pageSize;
+
+        // ✅ MySQL working pagination
+        query += $" ORDER BY ProductId LIMIT {offset}, {pageSize}";
+
+        var cmd = new MySqlCommand(query, conn);
+
+        if (!string.IsNullOrEmpty(search))
+            cmd.Parameters.AddWithValue("@Search", "%" + search + "%");
+
+        if (minPrice.HasValue)
+            cmd.Parameters.AddWithValue("@MinPrice", minPrice.Value);
+
+        if (maxPrice.HasValue)
+            cmd.Parameters.AddWithValue("@MaxPrice", maxPrice.Value);
+
+        conn.Open();
+
+        using (var reader = cmd.ExecuteReader())
         {
-            var products = new List<Product>();
-
-            using (var conn = _dbHelper.GetConnection())
+            while (reader.Read())
             {
-                var query = "SELECT * FROM Products WHERE 1=1";
-
-                if (!string.IsNullOrEmpty(search))
-                    query += " AND Name LIKE @Search";
-
-                if (minPrice.HasValue)
-                    query += " AND Price >= @MinPrice";
-
-                if (maxPrice.HasValue)
-                    query += " AND Price <= @MaxPrice";
-
-                int offset = (page - 1) * pageSize;
-
-                // ✅ MySQL working pagination
-                query += $" ORDER BY ProductId LIMIT {offset}, {pageSize}";
-
-                var cmd = new MySqlCommand(query, conn);
-
-                if (!string.IsNullOrEmpty(search))
-                    cmd.Parameters.AddWithValue("@Search", "%" + search + "%");
-
-                if (minPrice.HasValue)
-                    cmd.Parameters.AddWithValue("@MinPrice", minPrice.Value);
-
-                if (maxPrice.HasValue)
-                    cmd.Parameters.AddWithValue("@MaxPrice", maxPrice.Value);
-
-                conn.Open();
-
-                using (var reader = cmd.ExecuteReader())
+                products.Add(new Product
                 {
-                    while (reader.Read())
-                    {
-                        products.Add(new Product
-                        {
-                            ProductId = Convert.ToInt32(reader["ProductId"]),
-                            VendorId = Convert.ToInt32(reader["VendorId"]),
-                            Name = reader["Name"]?.ToString(),
-                            Description = reader["Description"]?.ToString(),
-                            Price = Convert.ToDecimal(reader["Price"]),
-                            Stock = Convert.ToInt32(reader["Stock"])
-                        });
-                    }
-                }
+                    ProductId = Convert.ToInt32(reader["ProductId"]),
+                    VendorId = Convert.ToInt32(reader["VendorId"]),
+                    Name = reader["Name"]?.ToString(),
+                    Description = reader["Description"]?.ToString(),
+                    Price = Convert.ToDecimal(reader["Price"]),
+                    Stock = Convert.ToInt32(reader["Stock"])
+                });
             }
-
-            return products;
         }
+    }
+
+    return products;
+}
 
 
 

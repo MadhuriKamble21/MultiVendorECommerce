@@ -56,11 +56,12 @@ namespace MultiVendorECommerce.Repositories.Implementations
                         }
 
                         
-                        var orderCmd = new MySqlCommand (
-                            @"INSERT INTO Orders(UserId, TotalAmount, OrderDate)
-                      OUTPUT INSERTED.OrderId
-                      VALUES(@UserId, @TotalAmount, GETDATE())",
-                            conn, transaction);
+                                            var orderCmd = new MySqlCommand(
+                        @"INSERT INTO Orders(UserId, TotalAmount, OrderDate)
+                          VALUES(@UserId, @TotalAmount, NOW());
+                          SELECT LAST_INSERT_ID();",
+                        conn, transaction);
+
                         
 
                         var userId = int.Parse(
@@ -72,9 +73,10 @@ namespace MultiVendorECommerce.Repositories.Implementations
                         //orderCmd.Parameters.AddWithValue("@UserId", dto.UserId);
                         orderCmd.Parameters.AddWithValue("@TotalAmount", totalAmount);
 
-                        int orderId = (int)orderCmd.ExecuteScalar();
+                        int orderId = Convert.ToInt32(orderCmd.ExecuteScalar());
 
-                        
+
+
                         foreach (var item in dto.Items)
                         {
                             var priceCmd = new MySqlCommand (
