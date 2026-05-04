@@ -83,9 +83,10 @@ namespace MultiVendorECommerce.Repositories.Implementations
                 if (maxPrice.HasValue)
                     query += " AND Price <= @MaxPrice";
 
-                query += " ORDER BY ProductId OFFSET @Offset ROWS FETCH NEXT @PageSize ROWS ONLY";
+                // ✅ MySQL pagination
+                query += " ORDER BY ProductId LIMIT @Offset, @PageSize";
 
-                var cmd = new MySqlCommand (query, conn);
+                var cmd = new MySqlCommand(query, conn);
 
                 cmd.Parameters.AddWithValue("@Offset", (page - 1) * pageSize);
                 cmd.Parameters.AddWithValue("@PageSize", pageSize);
@@ -107,12 +108,12 @@ namespace MultiVendorECommerce.Repositories.Implementations
                     {
                         products.Add(new Product
                         {
-                            ProductId = (int)reader["ProductId"],
-                            VendorId = (int)reader["VendorId"],
-                            Name = reader["Name"].ToString(),
-                            Description = reader["Description"].ToString(),
-                            Price = (decimal)reader["Price"],
-                            Stock = (int)reader["Stock"]
+                            ProductId = Convert.ToInt32(reader["ProductId"]),
+                            VendorId = Convert.ToInt32(reader["VendorId"]),
+                            Name = reader["Name"]?.ToString(),
+                            Description = reader["Description"]?.ToString(),
+                            Price = Convert.ToDecimal(reader["Price"]),
+                            Stock = Convert.ToInt32(reader["Stock"])
                         });
                     }
                 }
@@ -120,6 +121,7 @@ namespace MultiVendorECommerce.Repositories.Implementations
 
             return products;
         }
+
 
         public Product GetProductById(int productId)
         {
