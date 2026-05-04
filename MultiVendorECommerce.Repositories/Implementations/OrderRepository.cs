@@ -171,17 +171,18 @@ namespace MultiVendorECommerce.Repositories.Implementations
             {
                 conn.Open();
 
-                // Total Orders
-                var orderCmd = new MySqlCommand ("SELECT COUNT(*) FROM Orders", conn);
-                dashboard.TotalOrders = (int)orderCmd.ExecuteScalar();
+                // Total Orders (returns long in MySQL)
+                var orderCmd = new MySqlCommand("SELECT COUNT(*) FROM Orders", conn);
+                dashboard.TotalOrders = Convert.ToInt32(orderCmd.ExecuteScalar());
 
-                // Total Sales
-                var salesCmd = new MySqlCommand ("SELECT ISNULL(SUM(TotalAmount), 0) FROM Orders", conn);
-                dashboard.TotalSales = (decimal)salesCmd.ExecuteScalar();
+                // Total Sales (use IFNULL in MySQL)
+                var salesCmd = new MySqlCommand("SELECT IFNULL(SUM(TotalAmount), 0) FROM Orders", conn);
+                dashboard.TotalSales = Convert.ToDecimal(salesCmd.ExecuteScalar());
             }
 
             return dashboard;
         }
+
 
 
 
