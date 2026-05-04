@@ -59,15 +59,14 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend",
         policy => policy
-            .WithOrigins("http://localhost:3002") //  frontend
+            .AllowAnyOrigin()
             .AllowAnyMethod()
-            .AllowAnyHeader()
-            .AllowCredentials());
+            .AllowAnyHeader());
 });
 var app = builder.Build();
 
 // Middleware
-app.UseCors("AllowAll");
+app.UseCors("AllowFrontend");
 
 //  Enable Swagger in production
 app.UseSwagger();
