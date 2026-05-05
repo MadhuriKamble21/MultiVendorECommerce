@@ -1,4 +1,4 @@
-﻿import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import BASE_URL from "../api";
 import Navbar from "../components/Navbar";
 function Cart() {
