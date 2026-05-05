@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import BASE_URL from "../api";
 import Navbar from "../components/Navbar";
+import { useCallback } from "react";
 
 function Products() {
     const [products, setProducts] = useState([]);
@@ -9,17 +10,8 @@ function Products() {
     const [message, setMessage] = useState("");
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const token = localStorage.getItem("token");
-
-        if (!token) {
-            navigate("/");
-        } else {
-            fetchProducts();
-        }
-    }, [navigate]);
-
-    const fetchProducts = async () => {
+   
+    const fetchProducts = useCallback(async () => {
         try {
             const token = localStorage.getItem("token");
 
@@ -48,7 +40,11 @@ function Products() {
         } finally {
             setLoading(false);
         }
-    };
+    }, [navigate]);
+
+    useEffect(() => {
+        fetchProducts();
+    }, [fetchProducts]);
 
     const addToCart = (product) => {
         let cart = JSON.parse(localStorage.getItem("cart")) || [];
