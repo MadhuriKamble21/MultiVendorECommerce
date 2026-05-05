@@ -1,6 +1,7 @@
 ﻿import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import BASE_URL from "../api";
+import Navbar from "../components/Navbar";
 function AdminDashboard() {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -21,7 +22,7 @@ function AdminDashboard() {
         try {
             const token = localStorage.getItem("token");
 
-            const response = await fetch("https://multivendorecommerce-fw8x.onrender.com/api/order/dashboard", {
+            const response = await fetch(`${BASE_URL}/order/dashboard`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -42,68 +43,86 @@ function AdminDashboard() {
         }
     };
 
-    // 🎨 Styles
-    const container = {
-        padding: "24px",
-        background: "#f9fafb",
-        minHeight: "100vh",
-    };
+    const styles = {
+        page: {
+            padding: "24px",
+            background: "#f8fafc",
+            minHeight: "100vh",
+            fontFamily: "Arial, sans-serif",
+        },
 
-    const grid = {
-        display: "grid",
-        gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-        gap: "20px",
-        marginTop: "20px",
-    };
+        title: {
+            fontSize: "24px",
+            fontWeight: "700",
+            marginBottom: "20px",
+        },
 
-    const card = {
-        background: "white",
-        padding: "20px",
-        borderRadius: "12px",
-        boxShadow: "0 2px 10px rgba(0,0,0,0.05)",
-        display: "flex",
-        flexDirection: "column",
-        gap: "8px",
-    };
+        grid: {
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+            gap: "20px",
+        },
 
-    const label = {
-        fontSize: "14px",
-        color: "#6b7280",
-    };
+        card: {
+            background: "#ffffff",
+            padding: "24px",
+            borderRadius: "16px",
+            boxShadow: "0 8px 25px rgba(0,0,0,0.06)",
+            display: "flex",
+            flexDirection: "column",
+            gap: "10px",
+        },
 
-    const value = {
-        fontSize: "26px",
-        fontWeight: "700",
+        cardHeader: {
+            fontSize: "14px",
+            color: "#6b7280",
+            fontWeight: "500",
+        },
+
+        cardValue: {
+            fontSize: "32px",
+            fontWeight: "700",
+            color: "#111827",
+        },
+
+        error: {
+            background: "#fee2e2",
+            color: "#b91c1c",
+            padding: "10px",
+            borderRadius: "8px",
+            marginBottom: "15px",
+        },
     };
 
     return (
-        <div style={container}>
-            <h2 style={{ fontSize: "22px", fontWeight: "600" }}>
-                Admin Dashboard
-            </h2>
+        <>
+           <Navbar />
+        <div style={styles.page}>
+            <h2 style={styles.title}>Admin Dashboard</h2>
 
-            {/* Error */}
-            {error && <p style={{ color: "red" }}>{error}</p>}
+            {error && <div style={styles.error}>{error}</div>}
 
-            {/* Loading */}
             {loading ? (
                 <p>Loading dashboard...</p>
             ) : data && (
-                <div style={grid}>
-                    <div style={card}>
-                        <span style={label}>Total Orders</span>
-                        <span style={value}>{data.totalOrders}</span>
+                <div style={styles.grid}>
+                    <div style={styles.card}>
+                        <div style={styles.cardHeader}>📦 Total Orders</div>
+                        <div style={styles.cardValue}>
+                            {data.totalOrders}
+                        </div>
                     </div>
 
-                    <div style={card}>
-                        <span style={label}>Total Sales</span>
-                        <span style={value}>
+                    <div style={styles.card}>
+                        <div style={styles.cardHeader}>💰 Total Sales</div>
+                        <div style={styles.cardValue}>
                             ₹{data.totalSales.toLocaleString()}
-                        </span>
+                        </div>
                     </div>
                 </div>
             )}
-        </div>
+            </div>
+        </>
     );
 }
 
