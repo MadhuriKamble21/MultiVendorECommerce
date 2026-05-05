@@ -65,6 +65,8 @@ builder.Services.AddCors(options =>
 });
 var app = builder.Build();
 
+app.UseRouting();
+
 // Middleware
 app.UseCors("AllowFrontend");
 
