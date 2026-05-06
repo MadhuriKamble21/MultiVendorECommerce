@@ -1,100 +1,158 @@
-🛒 Multi-Vendor E-Commerce Application
+# 🛒 Multi-Vendor E-Commerce Application
 
 A full-stack e-commerce platform where multiple vendors can manage products and users can browse, add items to cart, and place orders.
 
-Built using ASP.NET Core Web API, React, and MySQL, with full deployment on Render (Backend) and Vercel (Frontend).
+Built using **ASP.NET Core Web API**, **React**, and **MySQL**, with deployment on **Render (Backend)** and **Vercel (Frontend)**.
 
-🚀 Live Demo
-🌐 Frontend (Vercel):
-https://multi-vendor-e-commerce-seven.vercel.app
-🔗 Backend API (Render):
-https://multivendorecommerce-fw8x.onrender.com
-🛠️ Tech Stack
-Frontend
-React.js
-JavaScript (ES6+)
-CSS (Inline styling)
-Backend
-ASP.NET Core Web API (.NET 8)
-ADO.NET (No Entity Framework)
-Database
-MySQL (Railway)
-Deployment
-Frontend → Vercel
-Backend → Render
-🔐 Features
-👤 Authentication
-User Registration
-Login with JWT Token
-Secure API access
-🛍️ User Features
-View all products
-Add products to cart
-Update quantity / remove items
-Place order
-View order history
-🧑‍💼 Admin Features
-Admin dashboard
-View total orders
-View total sales
-📦 API Endpoints (Sample)
-Auth
-POST /api/auth/register
-POST /api/auth/login
-Products
-GET /api/product/all
-Orders
-POST /api/order/place
-GET /api/order/my-orders
-GET /api/order/dashboard (Admin)
-📸 Screenshots
-Login Page
-<img width="1785" height="987" alt="Screenshot 2026-05-06 125227" src="https://github.com/user-attachments/assets/f1203eb1-0ec8-4a55-9eda-1fbd3a54f32a" />
-Products Page
-<img width="1883" height="794" alt="Screenshot-ProductPage" src="https://github.com/user-attachments/assets/43df3478-1cfc-4a3c-9760-421ef23ab229" />
-Cart Page
-<img width="1896" height="816" alt="ScreenshotCartPage" src="https://github.com/user-attachments/assets/042d507d-bc0f-4b00-b748-579d4c2d6878" />
-Orders Page
-<img width="1894" height="728" alt="ScreenshotOrdersPage" src="https://github.com/user-attachments/assets/96306f6b-55fd-462b-a448-ed99848eedf9" />
-Admin Dashboard
-<img width="1903" height="633" alt="ScreenshotAdminDashboard" src="https://github.com/user-attachments/assets/77e9049b-4500-498f-9744-6f2db0034cbb" />
-⚙️ Setup Instructions
-1️⃣ Clone Repository
+---
+
+## 🚀 Live Demo
+
+- 🌐 **Frontend (Vercel):**  
+  https://multi-vendor-e-commerce-seven.vercel.app  
+
+- 🔗 **Backend API (Render):**  
+  https://multivendorecommerce-fw8x.onrender.com  
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+- React.js  
+- JavaScript (ES6+)  
+- CSS  
+
+### Backend
+- ASP.NET Core Web API (.NET 8)  
+- ADO.NET (No Entity Framework)  
+
+### Database
+- MySQL (Railway)  
+
+### Deployment
+- Frontend → Vercel  
+- Backend → Render  
+
+---
+
+## 🔐 Features
+
+### 👤 Authentication
+- User Registration  
+- Login with JWT Token  
+- Secure API access  
+
+### 🛍️ User Features
+- View all products  
+- Add products to cart  
+- Update quantity / remove items  
+- Place order  
+- View order history  
+
+### 🧑‍💼 Admin Features
+- Admin dashboard  
+- View total orders  
+- View total sales  
+
+---
+
+## 📦 API Endpoints
+
+### Auth
+- `POST /api/auth/register`  
+- `POST /api/auth/login`  
+
+### Products
+- `GET /api/product/all`  
+
+### Orders
+- `POST /api/order/place`  
+- `GET /api/order/my-orders`  
+- `GET /api/order/dashboard` (Admin)  
+
+---
+
+## 📸 Screenshots
+
+### Login Page  
+![Login](https://github.com/user-attachments/assets/f1203eb1-0ec8-4a55-9eda-1fbd3a54f32a)
+
+### Products Page  
+![Products](https://github.com/user-attachments/assets/43df3478-1cfc-4a3c-9760-421ef23ab229)
+
+### Cart Page  
+![Cart](https://github.com/user-attachments/assets/042d507d-bc0f-4b00-b748-579d4c2d6878)
+
+### Orders Page  
+![Orders](https://github.com/user-attachments/assets/96306f6b-55fd-462b-a448-ed99848eedf9)
+
+### Admin Dashboard  
+![Admin](https://github.com/user-attachments/assets/77e9049b-4500-498f-9744-6f2db0034cbb)
+
+---
+
+## ⚙️ Setup Instructions
+
+### 1️⃣ Clone Repository
+
+```bash
 git clone https://github.com/MadhuriKamble21/MultiVendorECommerce.git
 cd MultiVendorECommerce
-2️⃣ Backend Setup (.NET API)
-Open solution in Visual Studio
-Update connection string in appsettings.json
-Add environment variables (JWT Key, Issuer, Audience)
 
-Run project:
+---
 
+### 2️⃣ Backend Setup (.NET API)
+
+- Open the solution in Visual Studio  
+- Update connection string in appsettings.json  
+- Add environment variables (JWT Key, Issuer, Audience)  
+
+Run backend:
 dotnet run
-3️⃣ Frontend Setup (React)
-cd frontend/multivendor-frontend
-npm install
-npm start
-🔧 Environment Variables (Backend)
 
-Add these in Render:
+---
 
-Jwt__Key=MyJwtKeyIs213399777!
-Jwt__Issuer=MultiVendorApp
-Jwt__Audience=MultiVendorUsers
-⚠️ Known Issues
-PWA manifest warning (can be ignored or removed)
-No image upload support yet
-🚀 Future Improvements
-Product image upload
-Payment integration (Razorpay/Stripe)
-Search & filtering
-Better UI/UX (animations, responsiveness)
-Vendor-specific dashboards
-👩‍💻 Author
+### 3️⃣ Frontend Setup (React)
 
-Madhuri Kamble
+cd frontend/multivendor-frontend  
+npm install  
+npm start  
 
-GitHub: https://github.com/MadhuriKamble21
-⭐ If you like this project
+---
 
-Give it a ⭐ on GitHub — it helps a lot!
+## 🔧 Environment Variables (Backend)
+
+Jwt__Key=YourSecretKeyHere  
+Jwt__Issuer=MultiVendorApp  
+Jwt__Audience=MultiVendorUsers  
+
+---
+
+## ⚠️ Known Issues
+
+- Manifest warning (can be ignored)  
+- No image upload support yet  
+
+---
+
+## 🚀 Future Improvements
+
+- Product image upload  
+- Payment integration (Razorpay/Stripe)  
+- Search & filtering  
+- UI/UX improvements  
+- Vendor-specific dashboards  
+
+---
+
+## 👩‍💻 Author
+
+Madhuri Kamble  
+https://github.com/MadhuriKamble21  
+
+---
+
+## ⭐ Support
+
+If you like this project, give it a ⭐ on GitHub!
