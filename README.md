@@ -102,7 +102,7 @@ Built using **ASP.NET Core Web API**, **React**, and **MySQL**, with deployment 
 ```bash
 git clone https://github.com/MadhuriKamble21/MultiVendorECommerce.git
 cd MultiVendorECommerce
-
+```
 ---
 
 ### 2️⃣ Backend Setup (.NET API)
