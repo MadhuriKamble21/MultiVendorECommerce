@@ -1,87 +1,100 @@
-# 🛒 Multi Vendor E-Commerce App
+🛒 Multi-Vendor E-Commerce Application
 
-## 🚀 Tech Stack
+A full-stack e-commerce platform where multiple vendors can manage products and users can browse, add items to cart, and place orders.
 
-* Backend: ASP.NET Core Web API (.NET 8)
-* Frontend: React.js
-* Database: SQL Server
-* Authentication: JWT
+Built using ASP.NET Core Web API, React, and MySQL, with full deployment on Render (Backend) and Vercel (Frontend).
 
----
+🚀 Live Demo
+🌐 Frontend (Vercel):
+https://multi-vendor-e-commerce-seven.vercel.app
+🔗 Backend API (Render):
+https://multivendorecommerce-fw8x.onrender.com
+🛠️ Tech Stack
+Frontend
+React.js
+JavaScript (ES6+)
+CSS (Inline styling)
+Backend
+ASP.NET Core Web API (.NET 8)
+ADO.NET (No Entity Framework)
+Database
+MySQL (Railway)
+Deployment
+Frontend → Vercel
+Backend → Render
+🔐 Features
+👤 Authentication
+User Registration
+Login with JWT Token
+Secure API access
+🛍️ User Features
+View all products
+Add products to cart
+Update quantity / remove items
+Place order
+View order history
+🧑‍💼 Admin Features
+Admin dashboard
+View total orders
+View total sales
+📦 API Endpoints (Sample)
+Auth
+POST /api/auth/register
+POST /api/auth/login
+Products
+GET /api/product/all
+Orders
+POST /api/order/place
+GET /api/order/my-orders
+GET /api/order/dashboard (Admin)
+📸 Screenshots
+Login Page
+<img width="1785" height="987" alt="Screenshot 2026-05-06 125227" src="https://github.com/user-attachments/assets/f1203eb1-0ec8-4a55-9eda-1fbd3a54f32a" />
+Products Page
+<img width="1883" height="794" alt="Screenshot-ProductPage" src="https://github.com/user-attachments/assets/43df3478-1cfc-4a3c-9760-421ef23ab229" />
+Cart Page
+<img width="1896" height="816" alt="ScreenshotCartPage" src="https://github.com/user-attachments/assets/042d507d-bc0f-4b00-b748-579d4c2d6878" />
+Orders Page
+<img width="1894" height="728" alt="ScreenshotOrdersPage" src="https://github.com/user-attachments/assets/96306f6b-55fd-462b-a448-ed99848eedf9" />
+Admin Dashboard
+<img width="1903" height="633" alt="ScreenshotAdminDashboard" src="https://github.com/user-attachments/assets/77e9049b-4500-498f-9744-6f2db0034cbb" />
+⚙️ Setup Instructions
+1️⃣ Clone Repository
+git clone https://github.com/MadhuriKamble21/MultiVendorECommerce.git
+cd MultiVendorECommerce
+2️⃣ Backend Setup (.NET API)
+Open solution in Visual Studio
+Update connection string in appsettings.json
+Add environment variables (JWT Key, Issuer, Audience)
 
-## 🔥 Features
+Run project:
 
-### 👤 Authentication
-
-* User Registration & Login
-* JWT-based authentication
-* Role-based access (Admin / Vendor / User)
-
-### 🛍️ Products
-
-* Add / View Products
-* Stock management
-* Protected APIs
-
-### 🛒 Cart
-
-* Add to cart
-* Quantity handling
-* Local storage implementation
-
-### 📦 Orders
-
-* Place Order
-* Transaction handling
-* Stock deduction
-* Payment entry
-
----
-
-## 🔐 Security
-
-* Password hashing using BCrypt
-* JWT Authentication
-* Protected APIs using `[Authorize]`
-
----
-
-## 🧠 Key Learnings
-
-* Full-stack development
-* API integration
-* Authentication & Authorization
-* Database transactions
-
----
-
-## ⚙️ How to Run
-
-### Backend
-
-1. Open solution in Visual Studio
-2. Update connection string in `appsettings.json`
-3. Run API
-
-### Frontend
-
-```bash
+dotnet run
+3️⃣ Frontend Setup (React)
 cd frontend/multivendor-frontend
 npm install
 npm start
-```
+🔧 Environment Variables (Backend)
 
----
+Add these in Render:
 
-## 📌 Future Improvements
-
-* Order History UI
-* Admin Dashboard
-* Payment Gateway Integration
-* Deployment (Azure / Vercel)
-
----
-
-## 👩‍💻 Author
+Jwt__Key=MyJwtKeyIs213399777!
+Jwt__Issuer=MultiVendorApp
+Jwt__Audience=MultiVendorUsers
+⚠️ Known Issues
+PWA manifest warning (can be ignored or removed)
+No image upload support yet
+🚀 Future Improvements
+Product image upload
+Payment integration (Razorpay/Stripe)
+Search & filtering
+Better UI/UX (animations, responsiveness)
+Vendor-specific dashboards
+👩‍💻 Author
 
 Madhuri Kamble
+
+GitHub: https://github.com/MadhuriKamble21
+⭐ If you like this project
+
+Give it a ⭐ on GitHub — it helps a lot!
