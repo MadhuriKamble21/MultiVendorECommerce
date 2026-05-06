@@ -14,7 +14,7 @@ Built using **ASP.NET Core Web API**, **React**, and **MySQL**, with deployment 
 - 🔗 **Backend API (Render):**  
   https://multivendorecommerce-fw8x.onrender.com
 
-  - 📘 Swagger Docs:  
+- 📘 **Swagger Docs:**   
   https://multivendorecommerce-fw8x.onrender.com/swagger/index.html  
 
 ---
