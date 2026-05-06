@@ -112,8 +112,9 @@ cd MultiVendorECommerce
 - Add environment variables (JWT Key, Issuer, Audience)  
 
 Run backend:
+```bash
 dotnet run
-
+```
 ---
 
 ### 3️⃣ Frontend Setup (React)
@@ -125,11 +126,11 @@ npm start
 ---
 
 ## 🔧 Environment Variables (Backend)
-
-Jwt__Key=YourSecretKeyHere  
+```bash
+Jwt__Key=MyJWTKey21339977!  
 Jwt__Issuer=MultiVendorApp  
 Jwt__Audience=MultiVendorUsers  
-
+```
 ---
 
 ## ⚠️ Known Issues
