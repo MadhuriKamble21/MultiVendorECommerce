@@ -12,6 +12,10 @@ function Products() {
     const navigate = useNavigate();
     const [page, setPage] = useState(1);
     const pageSize = 10;
+    const [search, setSearch] = useState("");
+    const [minPrice, setMinPrice] = useState("");
+    const [maxPrice, setMaxPrice] = useState("");
+    const [sort, setSort] = useState("");
 
    
     const fetchProducts = async () => {
@@ -19,7 +23,7 @@ function Products() {
             const token = localStorage.getItem("token");
 
             const response = await fetch(
-                `${BASE_URL}/product/all?page=${page}&pageSize=${pageSize}`,
+                `${BASE_URL}/product/all?page=${page}&pageSize=${pageSize}&search=${search}&minPrice=${minPrice}&maxPrice=${maxPrice}`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -34,13 +38,29 @@ function Products() {
 
             const data = await response.json();
 
+            let productsData = [];
+
             if (Array.isArray(data)) {
-                setProducts(data);
+                productsData = data;
             } else if (data.data) {
-                setProducts(data.data);
-            } else {
-                setProducts([]);
+                productsData = data.data;
             }
+
+            let sortedProducts = [...productsData];
+
+            if (sort === "low-high") {
+                sortedProducts.sort((a, b) => a.price - b.price);
+            }
+
+            if (sort === "high-low") {
+                sortedProducts.sort((a, b) => b.price - a.price);
+            }
+
+            if (sort === "name") {
+                sortedProducts.sort((a, b) => a.name.localeCompare(b.name));
+            }
+
+            setProducts(sortedProducts);
         } catch (error) {
             console.error("Error fetching products:", error);
         } finally {
@@ -50,7 +70,7 @@ function Products() {
 
     useEffect(() => {
         fetchProducts();
-    }, [page]);
+    }, [page,sort]);
 
     const addToCart = (product) => {
         let cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -92,6 +112,49 @@ function Products() {
             <div style={styles.page}>
                 <div style={styles.container}>
                     <h3 style={styles.heading}>Explore Products</h3>
+                    <div style={styles.filters}>
+                        <input
+                            type="text"
+                            placeholder="Search products..."
+                            value={search}
+                            onChange={(e) => setSearch(e.target.value)}
+                            style={styles.input}
+                        />
+
+                        <input
+                            type="number"
+                            placeholder="Min Price"
+                            value={minPrice}
+                            onChange={(e) => setMinPrice(e.target.value)}
+                            style={styles.input}
+                        />
+
+                        <input
+                            type="number"
+                            placeholder="Max Price"
+                            value={maxPrice}
+                            onChange={(e) => setMaxPrice(e.target.value)}
+                            style={styles.input}
+                        />
+
+                        <select
+                            value={sort}
+                            onChange={(e) => setSort(e.target.value)}
+                            style={styles.input}
+                        >
+                            <option value="">Sort By</option>
+                            <option value="low-high">Price Low to High</option>
+                            <option value="high-low">Price High to Low</option>
+                            <option value="name">Name A-Z</option>
+                        </select>
+
+                        <button
+                            style={styles.searchBtn}
+                            onClick={fetchProducts}
+                        >
+                            Search
+                        </button>
+                    </div>
 
                     {loading ? (
                         <div style={styles.loaderContainer}>
@@ -276,6 +339,29 @@ const styles = {
         justifyContent: "center",
         alignItems: "center",
         height: "300px",
+    },
+    filters: {
+        display: "flex",
+        gap: "12px",
+        flexWrap: "wrap",
+        marginBottom: "25px",
+    },
+
+    input: {
+        padding: "10px",
+        borderRadius: "8px",
+        border: "1px solid #d1d5db",
+        minWidth: "180px",
+    },
+
+    searchBtn: {
+        padding: "10px 18px",
+        border: "none",
+        borderRadius: "8px",
+        background: "#2563eb",
+        color: "white",
+        cursor: "pointer",
+        fontWeight: "600",
     },
 };
 
