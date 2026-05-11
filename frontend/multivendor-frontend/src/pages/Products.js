@@ -65,7 +65,7 @@ function Products() {
         } finally {
             setLoading(false);
         }
-    }, [page, sort, search, minPrice, maxPrice]);
+    }, [page, sort, search, minPrice, maxPrice, navigate]);
 
     useEffect(() => {
         fetchProducts();
