@@ -81,6 +81,11 @@ namespace MultiVendorECommerce.Services.Implementations
             _repo.DeleteProduct(productId, vendorId);
         }
 
+        public Product GetProduct(int productId)
+        {
+            return _repo.GetProductById(productId);
+        }
+
 
     }
 }

@@ -4,7 +4,6 @@ import BASE_URL from "../api";
 import Navbar from "../components/Navbar";
 import { useCallback } from "react";
 import { ClipLoader } from "react-spinners";
-
 function Products() {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -167,8 +166,13 @@ function Products() {
                             {products.map((p) => (
                                 <div
                                     key={p.productId || p.id}
-                                    style={styles.card}
+                                    style={styles.card} onClick={() => navigate(`/product/${p.productId}`)}
                                 >
+                                    <img
+                                        src={p.imageUrl}
+                                        alt={p.name}
+                                        style={styles.image}
+                                    />
                                     <div style={styles.cardBody}>
                                         <h4 style={styles.productName}>
                                             {p.name}
@@ -275,15 +279,15 @@ const styles = {
         fontSize: "13px",
         color: "#6b7280",
         marginBottom: "14px",
-        lineHeight: "1.4",
-        minHeight: "40px",
+        lineHeight: "1",
+        minHeight: "20px",
     },
 
     price: {
         fontSize: "20px",
         fontWeight: "700",
         color: "#2563eb",
-        marginBottom: "12px",
+        marginBottom: "10px",
     },
 
     addBtn: {
@@ -362,6 +366,13 @@ const styles = {
         color: "white",
         cursor: "pointer",
         fontWeight: "600",
+    },
+    image: {
+        width: "100%",
+        height: "180px",
+        objectFit: "cover",
+        borderRadius: "10px",
+        marginBottom: "12px",
     },
 };
 

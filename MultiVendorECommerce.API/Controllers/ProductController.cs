@@ -72,6 +72,12 @@ namespace MultiVendorECommerce.API.Controllers
             return Ok("Product deleted");
         }
 
+        [HttpGet("{id}")]
+        public IActionResult GetProduct(int id)
+        {
+            var product = _service.GetProduct(id);
+            return Ok(product);
+        }
 
 
     }

@@ -72,7 +72,7 @@ namespace MultiVendorECommerce.Repositories.Implementations
 
     using (var conn = _dbHelper.GetConnection())
     {
-        var query = "SELECT * FROM Products WHERE 1=1";
+        var query = "SELECT ProductId,VendorId, Name,Description,Price,Stock,ImageUrl FROM Products WHERE 1=1";
 
         if (!string.IsNullOrEmpty(search))
             query += " AND Name LIKE @Search";
@@ -112,7 +112,8 @@ namespace MultiVendorECommerce.Repositories.Implementations
                     Name = reader["Name"]?.ToString(),
                     Description = reader["Description"]?.ToString(),
                     Price = Convert.ToDecimal(reader["Price"]),
-                    Stock = Convert.ToInt32(reader["Stock"])
+                    Stock = Convert.ToInt32(reader["Stock"]),
+                    ImageUrl = reader["ImageUrl"]?.ToString(),
                 });
             }
         }
@@ -128,7 +129,7 @@ namespace MultiVendorECommerce.Repositories.Implementations
         {
             using (var conn = _dbHelper.GetConnection())
             {
-                var cmd = new MySqlCommand ("SELECT * FROM Products WHERE ProductId=@Id", conn);
+                var cmd = new MySqlCommand ("SELECT ProductId,VendorId,Name,Description,Price,Stock,ImageUrl FROM Products WHERE ProductId=@Id", conn);
                 cmd.Parameters.AddWithValue("@Id", productId);
 
                 conn.Open();
@@ -144,7 +145,8 @@ namespace MultiVendorECommerce.Repositories.Implementations
                             Name = reader["Name"].ToString(),
                             Description = reader["Description"].ToString(),
                             Price = (decimal)reader["Price"],
-                            Stock = (int)reader["Stock"]
+                            Stock = (int)reader["Stock"],
+                            ImageUrl = reader["ImageUrl"].ToString()
                         };
                     }
                 }

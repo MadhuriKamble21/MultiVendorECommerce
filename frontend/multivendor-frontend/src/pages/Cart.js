@@ -108,14 +108,17 @@ function Cart() {
             gap: "12px",
         },
 
+        
         card: {
             background: "#fff",
-            padding: "16px",
+            padding: "18px",
             borderRadius: "12px",
-            display: "flex",
-            justifyContent: "space-between",
+            boxShadow: "0 2px 10px rgba(0,0,0,0.06)",
+            marginBottom: "14px",
+            display: "grid",
+            gridTemplateColumns: "2fr 1fr 1fr auto",
             alignItems: "center",
-            boxShadow: "0 4px 12px rgba(0,0,0,0.06)",
+            gap: "20px",
         },
 
         name: {
@@ -132,7 +135,6 @@ function Cart() {
             display: "flex",
             alignItems: "center",
             gap: "8px",
-            background: "#f1f5f9",
             padding: "6px 10px",
             borderRadius: "8px",
         },
