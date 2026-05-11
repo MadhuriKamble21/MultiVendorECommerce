@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import BASE_URL from "../api";
@@ -11,11 +11,11 @@ function ProductDetails() {
     const [loading, setLoading] = useState(true);
     const [message, setMessage] = useState("");
 
-    useEffect(() => {
-        fetchProduct();
-    }, [id]);
+   
 
-    const fetchProduct = async () => {
+    
+
+    const fetchProduct = useCallback(async () => {
         try {
             const token = localStorage.getItem("token");
 
@@ -35,7 +35,11 @@ function ProductDetails() {
         } finally {
             setLoading(false);
         }
-    };
+    }, [id]);
+
+    useEffect(() => {
+        fetchProduct();
+    }, [fetchProduct]);
 
     const addToCart = () => {
         let cart = JSON.parse(localStorage.getItem("cart")) || [];
