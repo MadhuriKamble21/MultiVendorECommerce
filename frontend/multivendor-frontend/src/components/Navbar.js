@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
 
 function Navbar() {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
     const navigate = useNavigate();
 
     const logout = () => {
@@ -20,7 +22,7 @@ function Navbar() {
                 </button>
 
                 <button style={styles.btn} onClick={() => navigate("/cart")}>
-                    Cart
+                    Cart ({cart.length})
                 </button>
 
                 <button style={styles.btn} onClick={() => navigate("/orders")}>

@@ -191,6 +191,14 @@ function Cart() {
             fontSize: "14px",
             boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
         },
+        empty: {
+            textAlign: "center",
+            marginTop: "100px",
+            background: "white",
+            padding: "40px",
+            borderRadius: "16px",
+            boxShadow: "0 2px 10px rgba(0,0,0,0.08)",
+        },
     };
 
     return (
@@ -201,9 +209,15 @@ function Cart() {
 
             {message && <div style={styles.toast}>{message}</div>}
 
-            {cart.length === 0 ? (
-                <p style={{ padding: "20px" }}>No items in cart</p>
-            ) : (
+                {cart.length === 0 ? (
+                    <div style={styles.empty}>
+                        <h2>Your Cart is Empty</h2>
+
+                        <p>
+                            Add some products to continue shopping
+                        </p>
+                    </div>
+                ) : (
                 <div style={styles.layout}>
                     {/* LEFT - ITEMS */}
                     <div style={styles.items}>

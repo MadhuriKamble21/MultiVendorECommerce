@@ -165,13 +165,24 @@ function Products() {
                         <div style={styles.grid}>
                             {products.map((p) => (
                                 <div
-                                    key={p.productId || p.id}
-                                    style={styles.card} onClick={() => navigate(`/product/${p.productId}`)}
+                                    key={p.productId}
+                                    style={styles.card}
+                                    onClick={() => navigate(`/product/${p.productId}`)}
+                                    onMouseEnter={(e) => {
+                                        e.currentTarget.style.transform = "translateY(-5px)";
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        e.currentTarget.style.transform = "translateY(0px)";
+                                    }}
                                 >
                                     <img
                                         src={p.imageUrl}
                                         alt={p.name}
                                         style={styles.image}
+                                        onError={(e) => {
+                                            e.target.src =
+                                                "https://via.placeholder.com/300";
+                                        }}
                                     />
                                     <div style={styles.cardBody}>
                                         <h4 style={styles.productName}>
@@ -186,13 +197,30 @@ function Products() {
                                         <p style={styles.price}>
                                             ₹{p.price}
                                         </p>
+                                        <div
+                                            style={
+                                                p.stock > 0
+                                                    ? styles.inStock
+                                                    : styles.outStock
+                                            }
+                                        >
+                                            {p.stock > 0
+                                                ? `In Stock (${p.stock})`
+                                                : "Out Of Stock"}
+                                        </div>
                                     </div>
 
+
                                     <button
-                                        style={styles.addBtn}
+                                        style={
+                                            p.stock > 0
+                                                ? styles.addBtn
+                                                : styles.disabledBtn
+                                        }
                                         onClick={() => addToCart(p)}
+                                        disabled={p.stock === 0}
                                     >
-                                        Add to Cart
+                                        {p.stock > 0 ? "Add To Cart" : "Out Of Stock"}
                                     </button>
                                 </div>
                             ))}
@@ -261,7 +289,8 @@ const styles = {
         flexDirection: "column",
         justifyContent: "space-between",
         minHeight: "220px",
-        transition: "0.2s",
+        transition: "0.3s",
+        cursor: "pointer",
     },
 
     cardBody: {
@@ -373,6 +402,28 @@ const styles = {
         objectFit: "cover",
         borderRadius: "10px",
         marginBottom: "12px",
+    },
+    inStock: {
+        color: "#16a34a",
+        fontWeight: "600",
+        marginBottom: "12px",
+    },
+
+    outStock: {
+        color: "#dc2626",
+        fontWeight: "600",
+        marginBottom: "12px",
+    },
+
+    disabledBtn: {
+        width: "100%",
+        padding: "12px",
+        border: "none",
+        borderRadius: "10px",
+        background: "#9ca3af",
+        color: "white",
+        cursor: "not-allowed",
+        fontWeight: "600",
     },
 };
 

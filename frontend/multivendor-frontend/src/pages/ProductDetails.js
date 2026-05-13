@@ -154,7 +154,10 @@ const styles = {
         borderRadius: "18px",
         padding: "30px",
         display: "grid",
-        gridTemplateColumns: "1fr 1fr",
+        gridTemplateColumns:
+            window.innerWidth < 768
+                ? "1fr"
+                : "1fr 1fr",
         gap: "40px",
         boxShadow: "0 4px 18px rgba(0,0,0,0.08)",
     },
