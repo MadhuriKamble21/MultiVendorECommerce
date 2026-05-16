@@ -82,10 +82,11 @@ Built using **ASP.NET Core Web API**, **React**, and **MySQL**, with deployment 
 ![Login](https://github.com/user-attachments/assets/f1203eb1-0ec8-4a55-9eda-1fbd3a54f32a)
 
 ### Products Page  
-![Products](https://github.com/user-attachments/assets/43df3478-1cfc-4a3c-9760-421ef23ab229)
+<img width="1874" height="930" alt="image" src="https://github.com/user-attachments/assets/262b6f59-8b9d-47c1-98c1-8dad859f691f" />
 
 ### Cart Page  
-![Cart](https://github.com/user-attachments/assets/042d507d-bc0f-4b00-b748-579d4c2d6878)
+<img width="1902" height="746" alt="image" src="https://github.com/user-attachments/assets/83794faa-ad8e-4562-905f-256715ad8dac" />
+
 
 ### Orders Page  
 ![Orders](https://github.com/user-attachments/assets/96306f6b-55fd-462b-a448-ed99848eedf9)
